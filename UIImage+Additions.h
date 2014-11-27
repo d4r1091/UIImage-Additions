@@ -131,6 +131,14 @@ typedef enum __UIImageGradientDirection
 + (UIImage*)imageWithGradient:(NSArray*)colors size:(CGSize)size direction:(UIImageGradientDirection)direction;
 + (UIImage*)resizableImageWithGradient:(NSArray*)colors size:(CGSize)size direction:(UIImageGradientDirection)direction;
 
+/*
+ * Base64 Handling
+ */
+
++ (NSString *)encodeToBase64String:(UIImage *)image withCompressionQuality:(CGFloat)compressionQuality;
+
++ (UIImage *)decodeImageFromBase64String:(NSString *)base64String;
+
 @end
 
 #pragma mark - Categories

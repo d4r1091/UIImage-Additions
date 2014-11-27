@@ -599,6 +599,31 @@ static NSString * kUIImageSize = @"kUIImageSize";
     return [[self imageWithGradient:colors size:imageSize direction:direction] resizableImageWithCapInsets:insets];
 }
 
++ (NSString *)encodeToBase64String:(UIImage *)image withCompressionQuality:(CGFloat)compressionQuality {
+    NSData   *imageData = UIImageJPEGRepresentation(image, compressionQuality);
+    NSString *image64 =  [imageData base64Encoding];
+    
+    return image64;
+}
+
++ (NSData *)dataFromBase64EncodedString:(NSString *)string{
+    if (string.length > 0) {
+        
+        //the iPhone has base 64 decoding built in but not obviously. The trick is to
+        //create a data url that's base 64 encoded and ask an NSData to load it.
+        NSString *data64URLString = [NSString stringWithFormat:@"data:;base64,%@", string];
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:data64URLString]];
+        return data;
+    }
+    return nil;
+}
+
++ (UIImage *)decodeImageFromBase64String:(NSString *)base64String
+{
+    NSData *imageData = [UIImage dataFromBase64EncodedString:base64String];
+    return [UIImage imageWithData:imageData];
+}
+
 @end
 
 #pragma mark - Categories
